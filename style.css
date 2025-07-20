@@ -1,0 +1,396 @@
+body {
+    background: #f4f6fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+.login-container {
+    width: 350px;
+    margin: 100px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-top: 10px;
+}
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover {
+    background: #0056b3;
+}
+.error {
+    color: #d8000c;
+    background: #ffbaba;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.navbar {
+    background: #4054b2;
+    color: #fff;
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.navbar-links a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre le contenu horizontalement */
+}
+
+.card-total {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 250px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.card-total h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.total-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4054b2;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 25px;
+}
+
+.militaires-list {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Structure pour les cartes militaires à venir */
+.militaire-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 320px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.militaire-photo {
+    width: 100px;
+    height: 100px;
+    background: #e0e0e0;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 1rem;
+}
+
+.militaire-nom {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.militaire-grade {
+    color: #4054b2;
+    font-size: 1rem;
+}
+
+.add-form {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 40px;
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.add-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #4054b2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-form button:hover {
+    background: #283a7a;
+}
+
+.success {
+    color: #155724;
+    background: #d4edda;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+.btn-floating {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    width: 60px;
+    height: 60px;
+    background: #28a745; /* Vert pour démarquer de la navigation */
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    z-index: 100;
+    transition: background 0.2s, transform 0.2s;
+}
+.btn-floating:hover {
+    background: #218838;
+    transform: scale(1.1);
+}
+
+
+.btn-retour {
+    display: inline-block;
+    margin-top: 20px;
+    color: #4054b2;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.btn-retour:hover {
+    text-decoration: underline;
+}
+.add-form select,
+.add-form input[type="date"],
+.add-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.table-container {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 40px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.militaires-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.militaires-table th, .militaires-table td {
+    padding: 14px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.militaires-table th {
+    background: #4054b2;
+    color: #fff;
+    font-weight: bold;
+}
+
+.action-btn {
+    margin-right: 8px;
+    color: #4054b2;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.action-btn.modif:hover { color: #2e7d32; }
+.action-btn.print:hover { color: #ffa000; }
+.action-btn.suppr:hover { color: #d32f2f; }
+
+.btn-imprimer {
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    background: #4054b2;
+    color: #fff;
+    border-radius: 30px;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+    transition: background 0.2s;
+}
+.btn-imprimer:hover {
+    background: #283a7a;
+}
+
+/* Animation d'apparition du pop-up message */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px) translateX(-50%);}
+    to { opacity: 1; transform: translateY(0) translateX(-50%);}
+}
+
+/* Fond semi-transparent pour le pop-up militaire */
+.militaire-popup {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Contenu du pop-up militaire */
+.popup-content {
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    min-width: 320px;
+    max-width: 90vw;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    position: relative;
+    text-align: left;
+}
+
+/* Bouton de fermeture du pop-up (croix) */
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 2rem;
+    color: #4054b2;
+    cursor: pointer;
+}
+
+/* Style des lignes d'information dans le pop-up */
+.popup-info {
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
+.btn-deconnexion {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: #d32f2f;
+    color: #fff;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 999;
+    transition: background 0.2s;
+}
+.btn-deconnexion:hover {
+    background: #b71c1c;
+}
+
+.btn-page {
+    display: inline-block;
+    background: #4054b2;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin: 0 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.btn-page:hover {
+    background: #283a7a;
+}
