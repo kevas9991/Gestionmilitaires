@@ -141,6 +141,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="file" name="photo" id="photo" accept="image/*">
             <label for="date_enrolement">Date d'enrôlement</label>
             <input type="date" name="date_enrolement" id="date_enrolement">
+            <label for="statut">Statut</label>
+            <select name="statut" id="statut" required>
+                <option value="En service">En service</option>
+                <option value="Retraité">Retraité</option>
+            </select>
             <button type="submit">Ajouter</button>
             <!-- Bouton retour vers la liste -->
             <a href="gestion_personnel.php" class="btn-retour">← Retour à la liste</a>

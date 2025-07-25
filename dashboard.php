@@ -33,6 +33,7 @@ $militaires = $stmt->fetchAll();
         <div class="navbar-links">
             <a href="dashboard.php">Tableau de bord</a>
             <a href="gestion_personnel.php">Gestion du personnel</a>
+            <a href="missions.php">Missions</a>
         </div>
     </nav>
     <div class="main-content">

@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telephone = trim($_POST['telephone'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $date_enrolement = $_POST['date_enrolement'] ?? '';
+    $statut = $_POST['statut'] ?? '';
     $photo = $militaire['photo'];
 
     // Gestion de l'upload de la nouvelle photo si envoyée
@@ -52,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Met à jour les infos du militaire dans la base
-    $stmt = $pdo->prepare("UPDATE militaires SET nom=?, prenom=?, sexe=?, etat_civil=?, date_naissance=?, lieu_naissance=?, nationalite=?, grade=?, unite=?, telephone=?, email=?, photo=?, date_enrolement=? WHERE id=?");
-    $stmt->execute([$nom, $prenom, $sexe, $etat_civil, $date_naissance, $lieu_naissance, $nationalite, $grade, $unite, $telephone, $email, $photo, $date_enrolement, $id]);
+    $stmt = $pdo->prepare("UPDATE militaires SET nom=?, prenom=?, sexe=?, etat_civil=?, date_naissance=?, lieu_naissance=?, nationalite=?, grade=?, unite=?, telephone=?, email=?, photo=?, date_enrolement=?, statut=? WHERE id=?");
+    $stmt->execute([$nom, $prenom, $sexe, $etat_civil, $date_naissance, $lieu_naissance, $nationalite, $grade, $unite, $telephone, $email, $photo, $date_enrolement, $statut, $id]);
     $message = "Modification réussie.";
     // Recharge les données modifiées pour affichage
     $stmt = $pdo->prepare("SELECT * FROM militaires WHERE id = ?");
@@ -132,6 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             <label for="date_enrolement">Date d'enrôlement</label>
             <input type="date" name="date_enrolement" id="date_enrolement" value="<?= htmlspecialchars($militaire['date_enrolement']) ?>">
+            <label for="statut">Statut</label>
+            <select name="statut" id="statut" required>
+                <option value="En service" <?= $militaire['statut']=='En service'?'selected':'' ?>>En service</option>
+                <option value="Retraité" <?= $militaire['statut']=='Retraité'?'selected':'' ?>>Retraité</option>
+            </select>
             <button type="submit">Enregistrer</button>
             <a href="gestion_personnel.php" class="btn-retour">← Retour à la liste</a>
         </form>

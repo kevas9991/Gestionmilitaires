@@ -49,24 +49,29 @@ require_once 'db.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Connexion Administrateur</h2>
-        <!-- Affiche le message d'erreur si besoin -->
-        <?php if (!empty($error)): ?>
-            <div class="error"><?= $error ?></div>
-        <?php endif; ?>
-        <!-- Formulaire de connexion admin -->
-        <form method="post">
-            <label for="username">Nom d'utilisateur :</label>
-            <input type="text" name="username" id="username" required>
-            <label for="password">Mot de passe :</label>
-            <input type="password" name="password" id="password" required>
-            <button type="submit">Se connecter</button>
-        </form>
-        <!-- Lien vers la page d'inscription admin -->
-        <p style="text-align:center;margin-top:15px;">
-            <a href="register_admin.php">S'inscrire comme admin</a>
-        </p>
+    <div class="login-split">
+        <div class="login-image"></div>
+        <div class="login-form-side">
+            <div class="login-container">
+                <h2>Connexion Administrateur</h2>
+                <!-- Affiche le message d'erreur si besoin -->
+                <?php if (!empty($error)): ?>
+                    <div class="error"><?= $error ?></div>
+                <?php endif; ?>
+                <!-- Formulaire de connexion admin -->
+                <form method="post">
+                    <label for="username">Nom d'utilisateur :</label>
+                    <input type="text" name="username" id="username" required>
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" name="password" id="password" required>
+                    <button type="submit">Se connecter</button>
+                </form>
+                <!-- Lien vers la page d'inscription admin -->
+                <p style="text-align:center;margin-top:15px;">
+                    <a href="register_admin.php">S'inscrire comme admin</a>
+                </p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

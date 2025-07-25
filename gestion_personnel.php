@@ -2,7 +2,7 @@
 require_once 'auth.php'; // Démarre la session et vérifie l'authentification admin
 require_once 'db.php';   // Connexion à la base de données
 
-// Récupère le nombre total de militaires
+// Récupère le nombre total de militaires (pour la carte)
 $stmt = $pdo->query("SELECT COUNT(*) FROM militaires");
 $total_militaires = $stmt->fetchColumn();
 
@@ -11,11 +11,41 @@ $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $limit = 10; // Nombre d'éléments par page
 $offset = ($page - 1) * $limit;
 
-// Récupère la liste des militaires avec pagination
-$stmt = $pdo->prepare("SELECT * FROM militaires ORDER BY id DESC LIMIT ? OFFSET ?");
-$stmt->bindValue(1, $limit, PDO::PARAM_INT);
-$stmt->bindValue(2, $offset, PDO::PARAM_INT);
-$stmt->execute();
+// --- AJOUT FILTRE RECHERCHE ---
+$where = [];
+$params = [];
+
+// Filtre par nom
+if (!empty($_GET['nom'])) {
+    $where[] = "nom LIKE ?";
+    $params[] = "%" . $_GET['nom'] . "%";
+}
+// Filtre par grade
+if (!empty($_GET['grade'])) {
+    $where[] = "grade = ?";
+    $params[] = $_GET['grade'];
+}
+// Filtre par corps d'arme
+if (!empty($_GET['corps'])) {
+    $where[] = "corps_arme = ?";
+    $params[] = $_GET['corps'];
+}
+// Filtre par statut
+if (!empty($_GET['statut'])) {
+    $where[] = "statut = ?";
+    $params[] = $_GET['statut'];
+}
+
+$sql = "SELECT * FROM militaires";
+if ($where) {
+    $sql .= " WHERE " . implode(" AND ", $where);
+}
+// Ajoutez LIMIT et OFFSET avec les valeurs directement (attention à l’injection, ici $limit et $offset sont des entiers)
+$sql .= " ORDER BY id DESC LIMIT $limit OFFSET $offset";
+
+// Utilisation de PDO pour préparer la requête
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
 $militaires = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
@@ -43,6 +73,30 @@ $militaires = $stmt->fetchAll();
             <h3>Total Militaires</h3>
             <div class="total-number"><?= $total_militaires ?></div>
         </div>
+        <!-- Formulaire de recherche avancée -->
+        <form method="GET" action="gestion_personnel.php" style="margin-bottom:20px;">
+            <input type="text" name="nom" placeholder="Nom" value="<?php echo isset($_GET['nom']) ? htmlspecialchars($_GET['nom']) : ''; ?>">
+            <select name="grade">
+                <option value="">-- Grade --</option>
+                <option value="Caporal" <?php if(isset($_GET['grade']) && $_GET['grade']=='Caporal') echo 'selected'; ?>>Caporal</option>
+                <option value="Sergent" <?php if(isset($_GET['grade']) && $_GET['grade']=='Sergent') echo 'selected'; ?>>Sergent</option>
+                <option value="Lieutenant" <?php if(isset($_GET['grade']) && $_GET['grade']=='Lieutenant') echo 'selected'; ?>>Lieutenant</option>
+                <!-- Ajoutez les autres grades ici -->
+            </select>
+            <select name="corps">
+                <option value="">-- Corps d'arme --</option>
+                <option value="Infanterie" <?php if(isset($_GET['corps']) && $_GET['corps']=='Infanterie') echo 'selected'; ?>>Infanterie</option>
+                <option value="Artillerie" <?php if(isset($_GET['corps']) && $_GET['corps']=='Artillerie') echo 'selected'; ?>>Artillerie</option>
+                <option value="Génie" <?php if(isset($_GET['corps']) && $_GET['corps']=='Génie') echo 'selected'; ?>>Génie</option>
+                <!-- Ajoutez les autres corps ici -->
+            </select>
+            <select name="statut">
+                <option value="">-- Statut --</option>
+                <option value="En service" <?php if(isset($_GET['statut']) && $_GET['statut']=='En service') echo 'selected'; ?>>En service</option>
+                <option value="Retraité" <?php if(isset($_GET['statut']) && $_GET['statut']=='Retraité') echo 'selected'; ?>>Retraité</option>
+            </select>
+            <button type="submit">Rechercher</button>
+        </form>
         <div class="table-container">
             <h2 class="section-title">Liste des Militaires</h2>
             <table class="militaires-table">
@@ -53,6 +107,7 @@ $militaires = $stmt->fetchAll();
                         <th>Grade</th>
                         <th>Unité</th>
                         <th>Date d'enrôlement</th>
+                        <th>Statut</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -60,7 +115,7 @@ $militaires = $stmt->fetchAll();
                 <?php if (count($militaires) === 0): ?>
                     <!-- Affiche un message si aucun militaire n'est trouvé -->
                     <tr>
-                        <td colspan="6" style="text-align:center;">Aucun militaire trouvé.</td>
+                        <td colspan="7" style="text-align:center;">Aucun militaire trouvé.</td>
                     </tr>
                 <?php else: ?>
                     <!-- Boucle sur chaque militaire pour afficher sa ligne -->
@@ -79,6 +134,7 @@ $militaires = $stmt->fetchAll();
                             <td><?= htmlspecialchars($militaire['grade']) ?></td>
                             <td><?= htmlspecialchars($militaire['unite'] ?? '-') ?></td>
                             <td><?= !empty($militaire['date_enrolement']) ? date('d/m/Y', strtotime($militaire['date_enrolement'])) : '-' ?></td>
+                            <td><?= htmlspecialchars($militaire['statut'] ?? '-') ?></td>
                             <td>
                                 <!-- Bouton modifier la fiche du militaire -->
                                 <a href="modifier_militaire.php?id=<?= $militaire['id'] ?>" class="action-btn modif"><i class="fas fa-edit"></i></a>
